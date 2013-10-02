@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/slee.jar" sourcepath="lib/jslee-1_1-fr-api.zip"/>
+	<classpathentry kind="lib" path="lib/DU/standard-components-du.jar/jars/standard-events-jar-2.7.0.FINAL.jar"/>
+	<classpathentry kind="lib" path="lib/DU/standard-components-du.jar/jars/standard-events11-jar-2.7.0.FINAL.jar"/>
+	<classpathentry kind="lib" path="lib/DU/standard-components-du.jar/jars/standard-profiles-jar-2.7.0.FINAL.jar"/>
+	<classpathentry kind="lib" path="lib/DU/standard-components-du.jar/jars/standard-profiles11-jar-2.7.0.FINAL.jar"/>
+	<classpathentry kind="lib" path="/WebServiceInvocator/jars/StartWSInvocator-event.jar"/>
+	<classpathentry kind="lib" path="/MediaCall/jars/EndMediaCallTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/MediaCall/jars/StartMediaCallTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/PresenceTelcoService/jars/EndPresenceTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/PresenceTelcoService/jars/StartPresenceTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/SendEmailService/jars/EndSendEmailTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/SendEmailService/jars/StartSendEmailTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyCallTelcoService/jars/EndThirdPartyCallTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/ThirdPartyCallTelcoService/jars/StartThirdPartyCallTelcoService-event.jar"/>
+	<classpathentry kind="lib" path="/WebServiceInvocator/jars/EndWSInvocator-event.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

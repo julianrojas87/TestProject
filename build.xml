@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="all" name="TestProject">
+    <target name="init">
+        <path id="slee">
+            <pathelement location="lib/slee.jar"/>
+        </path>
+        <taskdef classname="org.mobicents.eclipslee.ant.SbbJar"
+            classpath="lib/slee-tasks.jar" name="sbbjar"/>
+        <taskdef classname="org.mobicents.eclipslee.ant.EventJar"
+            classpath="lib/slee-tasks.jar" name="eventjar"/>
+        <taskdef classname="org.mobicents.eclipslee.ant.ProfileSpecJar"
+            classpath="lib/slee-tasks.jar" name="profilespecjar"/>
+        <taskdef classname="org.mobicents.eclipslee.ant.DeployableJar"
+            classpath="lib/slee-tasks.jar" name="deployablejar"/>
+        <taskdef
+            classname="org.mobicents.eclipslee.ant.ResourceAdaptorTypeJar"
+            classpath="lib/slee-tasks.jar" name="resourceadaptortypejar"/>
+        <taskdef
+            classname="org.mobicents.eclipslee.ant.ResourceAdaptorJar"
+            classpath="lib/slee-tasks.jar" name="resourceadaptorjar"/>
+        <path id="ExternalComponents">
+            <pathelement location="lib/DU/standard-components-du.jar/jars/standard-events-jar-2.7.0.FINAL.jar"/>
+            <pathelement location="lib/DU/standard-components-du.jar/jars/standard-events11-jar-2.7.0.FINAL.jar"/>
+            <pathelement location="lib/DU/standard-components-du.jar/jars/standard-profiles-jar-2.7.0.FINAL.jar"/>
+            <pathelement location="lib/DU/standard-components-du.jar/jars/standard-profiles11-jar-2.7.0.FINAL.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/ThirdPartyCallTelcoService/jars/EndThirdPartyCallTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/ThirdPartyCallTelcoService/jars/StartThirdPartyCallTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/MediaCall/jars/EndMediaCallTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/MediaCall/jars/StartMediaCallTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/WebServiceInvocator/jars/EndWSInvocator-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/WebServiceInvocator/jars/StartWSInvocator-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/SendEmailService/jars/EndSendEmailTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/SendEmailService/jars/StartSendEmailTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/PresenceTelcoService/jars/EndPresenceTelcoService-event.jar"/>
+            <pathelement location="/home/julian/Telcomp-Workspace/PresenceTelcoService/jars/StartPresenceTelcoService-event.jar"/>
+        </path>
+        <path id="path-Test-sbb">
+            <pathelement location="/home/julian/Telcomp-Workspace/TestProject/lib/DU/standard-components-du.jar/jars/standard-events11-jar-2.7.0.FINAL.jar"/>
+        </path>
+    </target>
+    <target depends="init" name="all">
+        <ant target="build-Test-sbb"/>
+        <ant target="build-test-DU"/>
+    </target>
+    <target depends="init" name="clean">
+        <ant target="clean-Test-sbb"/>
+        <ant target="clean-test-DU"/>
+    </target>
+    <target depends="init" name="build-Test-sbb">
+        <mkdir dir="classes/Test-sbb"/>
+        <mkdir dir="jars/"/>
+        <javac destdir="classes/Test-sbb" includeantruntime="false"
+            includes="org/telcomp/sbb/TestSbb.java" srcdir="src">
+            <classpath>
+                <path refid="path-Test-sbb"/>
+                <path refid="ExternalComponents"/>
+                <path refid="slee"/>
+            </classpath>
+        </javac>
+        <sbbjar classpath="classes/Test-sbb"
+            destfile="jars/Test-sbb.jar" sbbjarxml="src/org/telcomp/sbb/Test-sbb-jar.xml"/>
+    </target>
+    <target name="clean-Test-sbb">
+        <delete file="jars/Test-sbb.jar"/>
+        <delete dir="classes/Test-sbb"/>
+    </target>
+    <target depends="build-Test-sbb" name="build-test-DU">
+        <mkdir dir="classes/test-DU"/>
+        <copy file="src/org/telcomp/service/test-deployable-unit.xml" tofile="classes/test-DU/deployable-unit.xml"/>
+        <jar jarfile="jars/test-DU.jar">
+            <metainf dir="classes/test-DU" includes="deployable-unit.xml"/>
+            <fileset dir="" includes="jars/Test-sbb.jar"/>
+            <fileset dir="." includes="src/org/telcomp/service/test-service.xml"/>
+        </jar>
+    </target>
+    <target name="clean-test-DU">
+        <delete file="jars/test-DU.jar"/>
+        <delete dir="classes/test-DU"/>
+    </target>
+</project>
